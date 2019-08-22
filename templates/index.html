@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>留言板</title>
+</head>
+<body>
+<div style="text-align: center;"><h1>留言板</h1></div>
+<div style="text-align: center;">
+    <form action="{{ url_for('index') }}" method="POST">
+        用户名：<input type="text" name="user"><br>
+        留言标题：<input type="text" name="title"><br>
+        留言内容：<input type="text" name="say"><br>
+        <button>提交</button>
+    </form>
+</div>
+<hr>
+<center>
+    <table border="1" cellspacing="0">
+        <thead>
+        <tr>
+            <th>用户</th>
+            <th>标题</th>
+            <th>内容</th>
+            <th>留言时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for msg in msgs %}
+            <tr>
+                <td>{{ msg[1] }}</td>
+                <td>{{ msg[2] }}</td>
+                <td>{{ msg[3] }}</td>
+                <td>{{ msg[4] }}</td>
+                <td>
+                    <a href="/edit/?id={{ msg[0] }}">编辑</a>
+                    <a onclick="if(!confirm('确认删除？')) return false;" href="/delete/{{ msg[0] }}">删除</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</center>
+</body>
+</html>
